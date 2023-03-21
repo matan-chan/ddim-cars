@@ -18,7 +18,7 @@ from tensorflow.python.client import device_lib
 file_count = sum(len(files) for _, _, files in os.walk(r'data'))
 
 
-class Diffusion():
+class Diffusion:
 
     def __init__(self):
         self.normalizer = tf.keras.layers.Normalization()
@@ -97,7 +97,7 @@ class Diffusion():
 
     def plot_images(self, epoch=None, logs=None, num_rows=3, num_cols=6):
         # plot random generated images for visual evaluation of generation quality
-        generated_images = self.generate(num_rows * num_cols, plot_diffusion_steps)[0]
+        generated_images = self.generate(num_rows * num_cols, plot_diffusion_steps)
 
         plt.figure(figsize=(num_cols * 2.0, num_rows * 2.0))
         for row in range(num_rows):
@@ -111,7 +111,7 @@ class Diffusion():
 
     def train_step(self, optimizer, batch):
         # normalize images to have standard deviation of 1, like the noises
-        images = self.normalizer(batch, training=True)[0]
+        images = self.normalizer(batch, training=True)
         noises = tf.random.normal(shape=(batch_size, img_size, img_size, 3))
 
         # sample uniform random diffusion times
@@ -157,7 +157,3 @@ class Diffusion():
                         "\n" + f'epoch: {epoch + epoch_start} time: {time.time() - start_time} loss: {loss} ')
                 self.plot_images(epoch + epoch_start)
                 manager.save()
-
-
-d = Diffusion()
-d.train()
