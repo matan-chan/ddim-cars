@@ -157,3 +157,5 @@ class Diffusion:
                         "\n" + f'epoch: {epoch + epoch_start} time: {time.time() - start_time} loss: {loss} ')
                 self.plot_images(epoch + epoch_start)
                 manager.save()
+t = Diffusion()
+t.train()
